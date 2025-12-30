@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kornet Wiki</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+    /* Loading Screen Styles */
+    #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #0a0a0a;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+    }
+
+    .loading-logo {
+        color: #ff0000;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        text-align: center;
+        text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        animation: pulse 2s infinite;
+    }
+
+    .loading-text {
+        color: #ffffff;
+        font-size: 1.2em;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .loading-bar-container {
+        width: 300px;
+        height: 20px;
+        background-color: #333333;
+        border: 2px solid #ff0000;
+        border-radius: 3px;
+        overflow: hidden;
+    }
+
+    .loading-bar {
+        height: 100%;
+        width: 0%;
+        background-color: #ff0000;
+        animation: loading 3s ease-in-out forwards;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    .loading-subtext {
+        color: #aaaaaa;
+        font-size: 0.7em;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+
+    @keyframes loading {
+        0% { width: 0%; }
+        25% { width: 30%; }
+        50% { width: 70%; }
+        80% { width: 90%; }
+        100% { width: 100%; }
+    }
+
+    /* Hide content initially */
+    body.loading #main-content {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    body.loaded #loading-screen {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    body.loaded #main-content {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.5s ease-in;
+    }
+
+    /* Global body */
+    body {
+        font-family: 'Press Start 2P', cursive;
+        background-color: #f2f2f2;
+        color: #1a1a1a;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+        background-color: #333333;
+        padding: 30px 20px;
+        text-align: center;
+        border-bottom: 4px solid #ff0000;
+    }
+
+    header h1 {
+        color: #ff0000;
+        font-size: 2.5em;
+        margin: 0;
+    }
+
+    header p {
+        color: #ffffff;
+        font-size: 0.8em;
+        margin-top: 5px;
+    }
+
+    /* Main content */
+    main {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #e6e6e6;
+        border: 4px solid #333333;
+        border-radius: 5px;
+        box-shadow: 4px 4px #aaaaaa;
+    }
+
+    /* Section headers */
+    h2 {
+        color: #ff0000;
+        margin-bottom: 15px;
+        font-size: 1em;
+    }
+
+    p {
+        font-size: 0.8em;
+        margin-bottom: 15px;
+    }
+
+    ul, ol {
+        padding-left: 20px;
+        margin-bottom: 15px;
+    }
+
+    /* Staff list box */
+    .staff-list {
+        background-color: #cccccc;
+        padding: 10px;
+        border-left: 4px solid #ff0000;
+        margin-bottom: 15px;
+    }
+
+    /* Buttons style for links */
+    a {
+        color: #ff0000;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #333333;
+        border-top: 4px solid #ff0000;
+        margin-top: 40px;
+        color: #ffffff;
+        font-size: 0.7em;
+    }
+</style>
+</head>
+<body class="loading">
+    
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-logo">KORNET</div>
+        <div class="loading-text">Loading Kornet Wiki...</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+        <div class="loading-subtext">The Old Roblox Revival</div>
+    </div>
+
+    <!-- Main Content (initially hidden) -->
+    <div id="main-content">
+        <header>
+            <h1>Kornet Wiki</h1>
+            <p>The Old Roblox Revival</p>
+        </header>
+
+        <main>
+            <!-- Overview -->
+            <section>
+                <h2>Overview</h2>
+                <p><strong>Kornet</strong> is an <strong>old Roblox revival</strong> aiming to recreate the feel of classic Roblox gameplay and community interaction. It preserves legacy styles, mechanics, and aesthetics from earlier versions of Roblox. It was founded in Nov 7 2025 leading up to today when this wiki was created.</p>
+                <p>The main hub for the community is the <strong>Discord server</strong>, where members interact, get updates, and participate in revival-related events.</p>
+                <p><strong>Official Discord Server:</strong> <a href="https://discord.gg/u5En32wvwM" target="_blank">https://discord.gg/u5En32wvwM</a></p>
+            </section>
+
+            <!-- What is an Old Roblox Revival -->
+            <section>
+                <h2>What Is an Old Roblox Revival?</h2>
+                <p>An old Roblox revival is a community project (like an offline client or website) that aims to bring back the nostalgic experience of playing Roblox from its earlier years (roughly 2006-2013). These revivals often feature the older blocky graphics, simple UIs, classic games.</p>
+            </section>
+
+            <!-- Staff -->
+            <section>
+                <h2>Staff Team</h2>
+                <div class="staff-list">
+                    <p><strong>Owners:</strong> Potato,Aaron,Unknown</p>
+                    <p><strong>Administrators:</strong> Daniel,Mustard</p>
+                    <p><strong>Moderators:</strong> Haron fr, S . (Lead Moderator)</p>
+                    <p><strong>Developers / Leads:</strong> Unknown,RCC,Potato</p>
+                </div>
+            </section>
+
+            <!-- Features -->
+            <section>
+                <h2>Features</h2>
+                <p></p>
+            </section>
+
+            <!-- Rules -->
+            <section>
+                <h2>Rules & Guidelines for Discord Server</h2>
+                <ul>
+                    <li>Be respectful to all members.</li>
+                    <li>No harassment, hate speech, or toxicity.</li>
+                    <li>No slurs.</li>
+                    <li>Follow staff instructions.</li>
+                    <li>No advertising without permission.</li>
+                    <li>Use channels for their intended purposes.</li>
+                </ul>
+            </section>
+
+            <!-- How to Join -->
+            <section>
+                <h2>How to Join Kornet</h2>
+                <p>You can join Kornet by either:</p>
+                <ol>
+                    <li>Joining the Discord server: <a href="https://discord.gg/u5En32wvwM" target="_blank">https://discord.gg/u5En32wvwM</a></li>
+                    <li>Visiting <a href="https://kornet.lat" target="_blank">kornet.lat</a></li>
+                </ol>
+            </section>
+
+            <!-- History -->
+            <section>
+                <h2>History</h2>
+                <p>Kornet is considered an older Roblox revival. Specific founding dates, version history, and milestones are currently undocumented.</p>
+            </section>
+
+            <!-- Credits -->
+            <section>
+                <h2>Credits</h2>
+                <ul>
+                    <li>Kornet Owners & Staff</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            &copy; 2025 Kornet Owners & Staff
+        </footer>
+    </div>
+
+<script>
+    // Wait for the page to fully load
+    window.addEventListener('load', function() {
+        // Add a small delay to ensure the loading animation completes
+        setTimeout(function() {
+            document.body.classList.remove('loading');
+            document.body.classList.add('loaded');
+            
+            // Remove loading screen from DOM after transition
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.style.display = 'none';
+                }
+            }, 800); // Match the CSS transition time
+        }, 1000); // Total loading time (3s animation + 1s delay)
+    });
+
+    // Fallback: If page takes too long to load, show content anyway
+    setTimeout(function() {
+        if (document.body.classList.contains('loading')) {
+            document.body.classList.remove('loading');
+            document.body.classList.add('loaded');
+            
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.style.display = 'none';
+                }
+            }, 800);
+        }
+    }, 5000); // 5 second fallback
+</script>
+
+</body>
+</html>
