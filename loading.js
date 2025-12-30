@@ -9,25 +9,55 @@
         fallbackTime: 5000 // 5 second fallback timeout
     };
     
+    // Kornet logo URL (using your GitHub URL)
+    const KORNET_LOGO_URL = "https://raw.githubusercontent.com/mane131/Kornet-Wiki/refs/heads/main/kornet.png";
+    
     // Preload the logo image to ensure smooth loading
     function preloadLogoImage() {
         const logoImg = document.getElementById('kornet-logo');
-        if (logoImg && logoImg.src) {
+        
+        // Ensure the image has the correct URL
+        if (logoImg) {
+            if (!logoImg.src || logoImg.src.includes('placeholder')) {
+                logoImg.src = KORNET_LOGO_URL;
+            }
+            
             console.log('Preloading Kornet logo image:', logoImg.src);
             
             // Create new image object to preload
             const img = new Image();
             img.onload = function() {
                 console.log('Kornet logo image loaded successfully');
-                // You could add a callback here if needed
+                // Adjust image styling based on actual dimensions if needed
+                adjustLogoStyle(img.width, img.height);
             };
             img.onerror = function() {
-                console.error('Failed to load Kornet logo image');
+                console.error('Failed to load Kornet logo image from:', KORNET_LOGO_URL);
                 // Fallback to text if image fails to load
                 fallbackToTextLogo();
             };
             img.src = logoImg.src;
         }
+    }
+    
+    // Adjust logo style based on actual image dimensions
+    function adjustLogoStyle(width, height) {
+        const logoImg = document.getElementById('kornet-logo');
+        if (!logoImg) return;
+        
+        // If image is very wide, adjust max-width
+        if (width > 400) {
+            logoImg.style.maxWidth = '400px';
+        }
+        
+        // If image is tall, adjust max-height
+        if (height > 150) {
+            logoImg.style.maxHeight = '150px';
+        }
+        
+        // Center the image
+        logoImg.style.display = 'block';
+        logoImg.style.margin = '0 auto';
     }
     
     // Fallback to text logo if image fails to load
@@ -142,6 +172,12 @@
                 preloadLogoImage();
                 console.log('Logo image updated to:', newSrc);
             }
+        },
+        
+        // Get current logo URL
+        getLogoUrl: function() {
+            const logoImg = document.getElementById('kornet-logo');
+            return logoImg ? logoImg.src : KORNET_LOGO_URL;
         }
     };
 })();
