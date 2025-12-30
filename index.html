@@ -28,10 +28,14 @@
     }
 
     .loading-logo img {
-        max-width: 300px;
+        max-width: 400px;
+        max-height: 150px;
         height: auto;
-        filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+        filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7));
         animation: pulse 2s infinite;
+        image-rendering: pixelated; /* Gives retro pixel art look */
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
     }
 
     .loading-text {
@@ -68,8 +72,14 @@
     }
 
     @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.7; }
+        0%, 100% { 
+            opacity: 1; 
+            transform: scale(1);
+        }
+        50% { 
+            opacity: 0.8; 
+            transform: scale(1.05);
+        }
     }
 
     @keyframes loading {
@@ -191,13 +201,10 @@
     <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loading-logo">
-            <!-- Replace with your Kornet logo image -->
-            <!-- If you don't have one yet, you can use this placeholder -->
-            <div style="color: #ff0000; font-size: 3em; text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);">
-                KORNET
-            </div>
-            <!-- When you have your logo image, use this instead: -->
-            <!-- <img src="assets/images/kornet-logo.png" alt="Kornet Logo"> -->
+            <!-- Kornet Logo Image from GitHub -->
+            <img src="https://raw.githubusercontent.com/mane131/Kornet-Wiki/refs/heads/main/kornet.png" 
+                 alt="Kornet Logo" 
+                 id="kornet-logo">
         </div>
         <div class="loading-text">Loading Kornet Wiki...</div>
         <div class="loading-bar-container">
