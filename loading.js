@@ -1,52 +1,147 @@
-// Loading Screen Functionality
+// Loading Screen Functionality for Kornet Wiki
 (function() {
     'use strict';
     
-    // Wait for the page to fully load
-    window.addEventListener('load', function() {
-        // Add a small delay to ensure the loading animation completes
-        setTimeout(function() {
-            document.body.classList.remove('loading');
-            document.body.classList.add('loaded');
-            
-            // Remove loading screen from DOM after transition
-            setTimeout(function() {
-                const loadingScreen = document.getElementById('loading-screen');
-                if (loadingScreen) {
-                    loadingScreen.style.display = 'none';
-                }
-            }, 800); // Match the CSS transition time
-        }, 1000); // Total loading time (3s animation + 1s delay)
-    });
-
-    // Fallback: If page takes too long to load, show content anyway
-    setTimeout(function() {
-        if (document.body.classList.contains('loading')) {
-            document.body.classList.remove('loading');
-            document.body.classList.add('loaded');
-            
-            setTimeout(function() {
-                const loadingScreen = document.getElementById('loading-screen');
-                if (loadingScreen) {
-                    loadingScreen.style.display = 'none';
-                }
-            }, 800);
-        }
-    }, 5000); // 5 second fallback
+    // Configuration
+    const CONFIG = {
+        loadingTime: 4000, // 4 seconds total loading time
+        fadeOutTime: 800,  // 800ms fade out animation
+        fallbackTime: 5000 // 5 second fallback timeout
+    };
     
-    // Preload image if using an image logo
+    // Preload the logo image to ensure smooth loading
     function preloadLogoImage() {
-        const logoImg = document.querySelector('.loading-logo img');
+        const logoImg = document.getElementById('kornet-logo');
         if (logoImg && logoImg.src) {
+            console.log('Preloading Kornet logo image:', logoImg.src);
+            
+            // Create new image object to preload
             const img = new Image();
+            img.onload = function() {
+                console.log('Kornet logo image loaded successfully');
+                // You could add a callback here if needed
+            };
+            img.onerror = function() {
+                console.error('Failed to load Kornet logo image');
+                // Fallback to text if image fails to load
+                fallbackToTextLogo();
+            };
             img.src = logoImg.src;
         }
     }
     
+    // Fallback to text logo if image fails to load
+    function fallbackToTextLogo() {
+        const logoContainer = document.querySelector('.loading-logo');
+        if (logoContainer) {
+            logoContainer.innerHTML = `
+                <div style="color: #ff0000; font-size: 3em; text-shadow: 0 0 15px rgba(255, 0, 0, 0.7); font-family: 'Press Start 2P', cursive; animation: pulse 2s infinite;">
+                    KORNET
+                </div>
+            `;
+            console.log('Using fallback text logo');
+        }
+    }
+    
+    // Main loading screen handler
+    function handleLoadingScreen() {
+        // Wait for the page to fully load
+        window.addEventListener('load', function() {
+            console.log('Page fully loaded, starting loading screen transition');
+            
+            // Add a small delay to ensure the loading animation completes
+            setTimeout(function() {
+                document.body.classList.remove('loading');
+                document.body.classList.add('loaded');
+                
+                // Remove loading screen from DOM after transition
+                setTimeout(function() {
+                    const loadingScreen = document.getElementById('loading-screen');
+                    if (loadingScreen) {
+                        loadingScreen.style.display = 'none';
+                        console.log('Loading screen hidden');
+                    }
+                }, CONFIG.fadeOutTime);
+            }, CONFIG.loadingTime);
+        });
+
+        // Fallback: If page takes too long to load, show content anyway
+        setTimeout(function() {
+            if (document.body.classList.contains('loading')) {
+                console.log('Fallback timeout triggered, forcing content display');
+                document.body.classList.remove('loading');
+                document.body.classList.add('loaded');
+                
+                setTimeout(function() {
+                    const loadingScreen = document.getElementById('loading-screen');
+                    if (loadingScreen) {
+                        loadingScreen.style.display = 'none';
+                        console.log('Loading screen hidden (fallback)');
+                    }
+                }, CONFIG.fadeOutTime);
+            }
+        }, CONFIG.fallbackTime);
+    }
+    
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', preloadLogoImage);
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM ready, initializing loading screen');
+            preloadLogoImage();
+            handleLoadingScreen();
+        });
     } else {
+        console.log('DOM already ready, initializing loading screen');
         preloadLogoImage();
+        handleLoadingScreen();
     }
+    
+    // Public API for testing and manual control
+    window.KornetLoading = {
+        // Function to manually show loading screen
+        show: function() {
+            document.body.classList.add('loading');
+            document.body.classList.remove('loaded');
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.style.display = 'flex';
+                loadingScreen.style.opacity = '1';
+                loadingScreen.style.visibility = 'visible';
+            }
+            console.log('Loading screen manually shown');
+        },
+        
+        // Function to manually hide loading screen
+        hide: function() {
+            document.body.classList.remove('loading');
+            document.body.classList.add('loaded');
+            
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.style.display = 'none';
+                }
+            }, CONFIG.fadeOutTime);
+            console.log('Loading screen manually hidden');
+        },
+        
+        // Function to simulate loading (for testing)
+        simulate: function(duration = 3000) {
+            this.show();
+            
+            setTimeout(() => {
+                this.hide();
+            }, duration);
+        },
+        
+        // Update logo image
+        updateLogo: function(newSrc) {
+            const logoImg = document.getElementById('kornet-logo');
+            if (logoImg) {
+                logoImg.src = newSrc;
+                preloadLogoImage();
+                console.log('Logo image updated to:', newSrc);
+            }
+        }
+    };
 })();
