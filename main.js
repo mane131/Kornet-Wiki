@@ -5,12 +5,16 @@
     // Configuration
     const CONFIG = {
         wikiName: 'Kornet Wiki',
-        version: '1.0.0'
+        version: '1.0.0',
+        discordInvite: 'https://discord.gg/u5En32wvwM',
+        kornetWebsite: 'https://kornet.lat',
+        kornetLogo: 'https://raw.githubusercontent.com/mane131/Kornet-Wiki/refs/heads/main/kornet.png'
     };
     
     // Initialize when DOM is ready
     document.addEventListener('DOMContentLoaded', function() {
         console.log(`${CONFIG.wikiName} v${CONFIG.version} initialized`);
+        console.log(`Kornet Logo: ${CONFIG.kornetLogo}`);
         
         // Set up external link tracking
         setupExternalLinks();
@@ -23,6 +27,9 @@
         
         // Display current year in footer (optional)
         updateFooterYear();
+        
+        // Log initialization complete
+        console.log('Wiki initialization complete');
     });
     
     // Set up external links with tracking
@@ -77,20 +84,23 @@
     
     // Set up additional wiki features
     function setupWikiFeatures() {
-        // Example: Add copy to clipboard functionality for Discord invite
+        // Add copy to clipboard functionality for Discord invite
         const discordLink = document.querySelector('a[href*="discord.gg/u5En32wvwM"]');
         if (discordLink) {
-            discordLink.title = 'Click to copy Discord invite link';
+            discordLink.title = 'Join Kornet Discord Server';
             
+            // Add click handler for Discord link
             discordLink.addEventListener('click', function(e) {
-                // Only copy on Ctrl+Click or long press?
-                // For now, just log
-                console.log('Discord invite link clicked');
+                console.log('Kornet Discord invite clicked');
+                // Optional: Track Discord clicks
             });
         }
         
-        // Add responsive table of contents (optional enhancement)
-        // You could implement this later if needed
+        // Add click handler for Kornet website link
+        const websiteLink = document.querySelector('a[href*="kornet.lat"]');
+        if (websiteLink) {
+            websiteLink.title = 'Visit Kornet Website';
+        }
         
         console.log('Wiki features initialized');
     }
@@ -101,13 +111,8 @@
         const footer = document.querySelector('footer');
         
         if (footer) {
-            const yearSpan = footer.querySelector('#current-year');
-            if (yearSpan) {
-                yearSpan.textContent = currentYear;
-            } else {
-                // Find and replace 2025 with current year
-                footer.innerHTML = footer.innerHTML.replace('2025', currentYear);
-            }
+            // Find and replace 2025 with current year
+            footer.innerHTML = footer.innerHTML.replace('2025', currentYear);
         }
     }
     
@@ -127,20 +132,33 @@
     window.KornetWiki = {
         config: CONFIG,
         
-        // Get staff list as array
+        // Get staff list as organized object
         getStaffList: function() {
             const staffList = document.querySelector('.staff-list');
-            if (!staffList) return [];
+            if (!staffList) return { owners: [], admins: [], mods: [], devs: [] };
             
-            const staff = {};
+            const staff = {
+                owners: [],
+                admins: [],
+                mods: [],
+                devs: []
+            };
+            
             const lines = staffList.textContent.split('\n');
             
             lines.forEach(line => {
-                if (line.includes(':')) {
-                    const [role, names] = line.split(':').map(s => s.trim());
-                    if (role && names) {
-                        staff[role.toLowerCase()] = names.split(',').map(name => name.trim());
-                    }
+                if (line.includes('Owners:')) {
+                    const names = line.split('Owners:')[1].trim();
+                    staff.owners = names.split(',').map(name => name.trim());
+                } else if (line.includes('Administrators:')) {
+                    const names = line.split('Administrators:')[1].trim();
+                    staff.admins = names.split(',').map(name => name.trim());
+                } else if (line.includes('Moderators:')) {
+                    const names = line.split('Moderators:')[1].trim();
+                    staff.mods = names.split(',').map(name => name.trim());
+                } else if (line.includes('Developers / Leads:')) {
+                    const names = line.split('Developers / Leads:')[1].trim();
+                    staff.devs = names.split(',').map(name => name.trim());
                 }
             });
             
@@ -161,6 +179,21 @@
         getSectionNames: function() {
             const sections = document.querySelectorAll('section h2');
             return Array.from(sections).map(h2 => h2.textContent.trim());
+        },
+        
+        // Get Discord invite
+        getDiscordInvite: function() {
+            return CONFIG.discordInvite;
+        },
+        
+        // Get Kornet website
+        getKornetWebsite: function() {
+            return CONFIG.kornetWebsite;
+        },
+        
+        // Get logo URL
+        getLogoUrl: function() {
+            return CONFIG.kornetLogo;
         }
     };
     
