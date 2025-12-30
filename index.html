@@ -23,11 +23,14 @@
     }
 
     .loading-logo {
-        color: #ff0000;
-        font-size: 2.5em;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         text-align: center;
-        text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    .loading-logo img {
+        max-width: 300px;
+        height: auto;
+        filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
         animation: pulse 2s infinite;
     }
 
@@ -36,6 +39,7 @@
         font-size: 1.2em;
         margin-bottom: 40px;
         text-align: center;
+        font-family: 'Press Start 2P', cursive;
     }
 
     .loading-bar-container {
@@ -60,6 +64,7 @@
         font-size: 0.7em;
         margin-top: 20px;
         text-align: center;
+        font-family: 'Press Start 2P', cursive;
     }
 
     @keyframes pulse {
@@ -185,7 +190,15 @@
     
     <!-- Loading Screen -->
     <div id="loading-screen">
-        <div class="loading-logo">KORNET</div>
+        <div class="loading-logo">
+            <!-- Replace with your Kornet logo image -->
+            <!-- If you don't have one yet, you can use this placeholder -->
+            <div style="color: #ff0000; font-size: 3em; text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);">
+                KORNET
+            </div>
+            <!-- When you have your logo image, use this instead: -->
+            <!-- <img src="assets/images/kornet-logo.png" alt="Kornet Logo"> -->
+        </div>
         <div class="loading-text">Loading Kornet Wiki...</div>
         <div class="loading-bar-container">
             <div class="loading-bar"></div>
@@ -275,39 +288,9 @@
         </footer>
     </div>
 
-<script>
-    // Wait for the page to fully load
-    window.addEventListener('load', function() {
-        // Add a small delay to ensure the loading animation completes
-        setTimeout(function() {
-            document.body.classList.remove('loading');
-            document.body.classList.add('loaded');
-            
-            // Remove loading screen from DOM after transition
-            setTimeout(function() {
-                const loadingScreen = document.getElementById('loading-screen');
-                if (loadingScreen) {
-                    loadingScreen.style.display = 'none';
-                }
-            }, 800); // Match the CSS transition time
-        }, 1000); // Total loading time (3s animation + 1s delay)
-    });
-
-    // Fallback: If page takes too long to load, show content anyway
-    setTimeout(function() {
-        if (document.body.classList.contains('loading')) {
-            document.body.classList.remove('loading');
-            document.body.classList.add('loaded');
-            
-            setTimeout(function() {
-                const loadingScreen = document.getElementById('loading-screen');
-                if (loadingScreen) {
-                    loadingScreen.style.display = 'none';
-                }
-            }, 800);
-        }
-    }, 5000); // 5 second fallback
-</script>
+<!-- External JavaScript -->
+<script src="js/loading.js"></script>
+<script src="js/main.js"></script>
 
 </body>
 </html>
